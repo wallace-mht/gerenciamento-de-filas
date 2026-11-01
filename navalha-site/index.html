@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Navalha.co | Barbearia</title>
+<meta name="description" content="Veja a fila, escolha o corte e marque o horário com o barbeiro que você prefere. Navalha.co.">
+<meta name="theme-color" content="#0b0a08"><link rel="canonical" href="https://SEU-USUARIO.github.io/navalha/">
+<meta property="og:type" content="website"><meta property="og:title" content="Navalha.co"><meta property="og:description" content="Veja a fila e marque seu horário."><meta property="og:url" content="https://SEU-USUARIO.github.io/navalha/"><meta property="og:image" content="https://SEU-USUARIO.github.io/navalha/assets/icon-512.png">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/icon-180.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BarberShop","name":"Navalha.co","url":"https://SEU-USUARIO.github.io/navalha/","address":{"@type":"PostalAddress","streetAddress":"Rua das Flores, 120","addressLocality":"Parnaíba","addressCountry":"BR"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-plano="base" data-vis="cliente">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs><linearGradient id="gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ecd493"/><stop offset="1" stop-color="#8f6b22"/></linearGradient></defs>
+ <symbol id="tesoura" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></symbol>
+ <symbol id="espuma" viewBox="0 0 48 64"><path d="M14 26h20v30a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4z"/><path d="M17 26c0-5 3-8 7-8s7 3 7 8M21 18v-5h6v5"/><path d="M12 12a5 5 0 0 1 4-7 6 6 0 0 1 10-2 6 6 0 0 1 9 3 5 5 0 0 1 1 6z"/><path d="M19 38h10M19 44h10"/></symbol>
+ <symbol id="relogio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+ <symbol id="vazio" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/></symbol>
+ <symbol id="meio" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></symbol>
+ <symbol id="cheio" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="currentColor"/></symbol>
+ <symbol id="pausa" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M6.5 5.5v5M9.5 5.5v5"/></symbol>
+ <symbol id="cadeado" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+<header>
+ <a class="marca" href="#"><span class="logo" aria-hidden="true"><svg class="i"><use href="#tesoura"/></svg></span>Navalha<b>.co</b></a>
+ <div class="topo">
+  <div class="seg" role="radiogroup" aria-label="Quem está usando"><label><input type="radio" name="vis" value="cliente" checked><span>Cliente</span></label><label><input type="radio" name="vis" value="barbeiro"><span>Barbeiro/dono</span></label></div>
+  <div class="seg" role="radiogroup" aria-label="Plano exibido"><label><input type="radio" name="plano" value="base" checked><span>Base</span></label><label><input type="radio" name="plano" value="premium"><span>Premium</span></label></div>
+ </div>
+</header>
+<main>
+ <section class="painel hero" aria-labelledby="t-fila">
+  <svg class="deco i" viewBox="0 0 48 64" aria-hidden="true" style="stroke-width:.9"><use href="#espuma"/></svg>
+  <div>
+   <p class="apoio" data-cfg="endereco">Rua das Flores, 120 (endereço fictício)</p>
+   <h1 id="t-fila">Veja a fila antes de sair de casa</h1>
+   <p style="max-width:46ch;color:var(--tx2);margin:18px 0 26px">Escolha o corte, confira a espera de cada barbeiro e marque o horário no relógio.</p>
+   <a class="btn" href="#cortes">Ver estilos</a> <a class="btn sec" href="#agenda">Marcar horário</a>
+  </div>
+  <div>
+   <div class="anel" id="anel" role="img"><svg class="r" viewBox="0 0 200 200" aria-hidden="true"><circle class="trilho" cx="100" cy="100" r="90"/><circle class="arco" id="arco" cx="100" cy="100" r="90"/></svg>
+    <div class="centro"><div class="min"><span id="anelMin">0</span><span id="anelUn" style="font-size:.28em;color:var(--tx2)"> min</span></div>
+     <div class="estado" id="anelEstado"></div><div class="apoio" id="anelAtu"></div></div></div>
+   <div class="minis" id="minis" aria-label="Espera por barbeiro"></div>
+  </div>
+ </section>
+
+ <section class="painel" id="cortes" aria-labelledby="t-cortes">
+  <h2 id="t-cortes"><svg class="i"><use href="#tesoura"/></svg>Estilos de corte</h2>
+  <form class="filtros" role="radiogroup" aria-label="Filtrar por estilo"><label><input type="radio" name="f" value="todos" checked><span>Todos</span></label><label><input type="radio" name="f" value="classico"><span>Clássico</span></label><label><input type="radio" name="f" value="degrade"><span>Degradê</span></label><label><input type="radio" name="f" value="moderno"><span>Moderno</span></label></form>
+  <p class="apoio" role="status" aria-live="polite" id="contagem"></p>
+  <div class="grade" id="grade"></div>
+ </section>
+
+ <section class="painel" id="agenda" aria-labelledby="t-ag">
+  <h2 id="t-ag"><svg class="i"><use href="#relogio"/></svg>Marcar horário</h2>
+  <p class="apoio" id="agInfo" role="status" aria-live="polite"></p>
+  <div class="ctl">
+   <label class="c">Dia<select class="t" id="sDia"></select></label>
+   <label class="c">Corte<select class="t" id="sCorte"></select></label>
+   <div><span class="apoio">Barbeiro</span><div class="seg" role="radiogroup" aria-label="Barbeiro" id="sBarb" style="margin-top:6px"></div></div>
+  </div>
+  <div class="duas">
+   <div class="rel" id="rel"></div>
+   <div>
+    <div class="so-cli" id="meus"></div>
+    <h3 class="s">Fila de hoje</h3><ol class="fila" id="fila" aria-label="Fila de hoje por horário"></ol>
+    <div class="linha so-barb"><button class="btn sec peq" id="bPausa" type="button"></button><button class="btn sec peq" id="bAtu" type="button">Confirmar fila atualizada</button><button class="btn sec peq" id="bCfg" type="button">Configurar agenda e sinal</button><button class="btn sec peq" id="bExp" type="button">Exportar agenda</button><button class="btn sec peq" id="bImp" type="button">Importar agenda</button><input type="file" id="fImp" accept="application/json" class="sr" aria-label="Arquivo de agenda" style="position:absolute;width:1px;height:1px;opacity:0"></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="painel base-only so-barb" aria-labelledby="t-up"><div class="trava"><svg class="i"><use href="#cadeado"/></svg><h2 id="t-up" style="justify-content:center">Painel de saúde do negócio</h2><p class="apoio" style="max-width:56ch">No Plano Premium o dono vê faturamento, ocupação, faltas, retorno de clientes e uma nota de saúde calculada com a agenda. Troque para Premium no topo.</p></div></section>
+
+ <section class="painel premium so-barb" id="painel" aria-labelledby="t-pn">
+  <h2 id="t-pn"><svg class="i"><use href="#espuma"/></svg>Painel do dono</h2>
+  <p class="apoio">Cálculos locais com a agenda dos últimos 7 dias e a de hoje. Use os cenários de teste para ver cada situação.</p>
+  <div id="pnConteudo"></div>
+ </section>
+
+ <section class="painel" id="teste" aria-labelledby="t-te">
+  <h2 id="t-te"><svg class="i"><use href="#cadeado"/></svg>Modo de teste</h2>
+  <p class="apoio">Cada botão gera dados de exemplo (marcados, sem apagar o que você marcou) e ajusta a hora simulada. Nada é enviado a servidor.</p>
+  <div class="ctl"><label class="c">Hora simulada<input class="t" id="simH" type="time"></label><div class="linha" style="margin:0 0 10px"><button class="btn sec peq" id="simReal" type="button">Usar hora real</button><button class="btn sec peq" id="limpaEx" type="button">Remover dados de teste</button><button class="btn sec peq" id="zerar" type="button">Apagar tudo do protótipo</button></div></div>
+  <div class="teste" id="cenarios"></div>
+ </section>
+</main>
+<footer>Dados no <code>localStorage</code> deste navegador, sem Pix, WhatsApp automático ou servidor. O sinal é simulado. Fotos, endereço, preços e nomes são fictícios.<p><a href="fila.html">Tela da TV</a> · <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></p></footer>
+
+<dialog id="modal" aria-labelledby="m-titulo"><h2 id="m-titulo" style="font-size:28px"></h2><p class="apoio" id="m-desc"></p>
+ <div class="comp"><div class="antes">Antes</div><div class="depois" id="depois">Depois</div><input type="range" min="0" max="100" value="50" id="slide" aria-label="Comparar antes e depois"></div>
+ <div class="linha"><button class="btn" id="mAg" type="button">Marcar este corte</button><button class="btn sec" id="mFecha" type="button">Fechar</button></div></dialog>
+
+<dialog id="dAg" aria-labelledby="a-titulo"><form id="fAg"><h2 id="a-titulo" style="font-size:26px"></h2><p class="apoio" id="aResumo"></p>
+ <label class="c" id="aNomeW">Seu nome<input class="t" id="aNome" maxlength="40" autocomplete="given-name"></label>
+ <p class="apoio" id="aRegra"></p>
+ <div class="linha"><button class="btn" type="submit" id="aOk">Confirmar</button><button class="btn sec" id="aFecha" type="button">Voltar</button></div></form></dialog>
+
+<dialog id="dConf" aria-labelledby="c-titulo"><h2 id="c-titulo" style="font-size:26px"></h2><p id="cTxt"></p><div class="linha"><button class="btn" id="cOk" type="button">Confirmar</button><button class="btn sec" id="cNo" type="button">Voltar</button></div></dialog>
+
+<dialog id="dCfg" aria-labelledby="g-titulo"><form id="fCfg"><h2 id="g-titulo" style="font-size:26px">Agenda e sinal</h2><div id="cfgCorpo"></div>
+ <div class="g3"><label class="c">Sinal (20 a 30%)<input class="t" id="pSinal" type="number" min="20" max="30"></label><label class="c">Retenção no não comparecimento (%)<input class="t" id="pNo" type="number" min="0" max="100"></label><label class="c">Taxa de remarcação tardia (%)<input class="t" id="pRe" type="number" min="0" max="100"></label></div>
+ <div class="linha"><button class="btn" type="submit">Salvar</button><button class="btn sec" id="gFecha" type="button">Cancelar</button></div></form></dialog>
+
+<dialog id="dZap" aria-labelledby="z-titulo"><h2 id="z-titulo" style="font-size:26px">Pedido registrado neste aparelho</h2><p id="zTxt"></p><p class="apoio">Para o barbeiro confirmar, envie o pedido pelo WhatsApp. Sem essa mensagem ele não recebe o horário.</p><div class="linha"><a class="btn" id="zLink" target="_blank" rel="noopener">Enviar pelo WhatsApp</a><button class="btn sec" id="zFecha" type="button">Fechar</button></div></dialog>
+<script src="config.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

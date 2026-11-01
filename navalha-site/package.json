@@ -1,0 +1,1 @@
+{"name":"navalha-co","version":"1.0.0","private":true,"description":"Site estático da barbearia para GitHub Pages","scripts":{"test":"node --test tests/*.test.mjs","url":"node scripts/definir-url.mjs"}}

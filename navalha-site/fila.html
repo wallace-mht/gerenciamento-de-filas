@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>Fila de hoje | Navalha.co</title><meta name="theme-color" content="#0b0a08"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/fila.css"></head>
+<body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ecd493"/><stop offset="1" stop-color="#8f6b22"/></linearGradient></defs></svg>
+<main class="tv"><h1>Fila de hoje</h1>
+ <div class="anel" id="anel" role="img"><svg class="r" viewBox="0 0 200 200" aria-hidden="true"><circle class="trilho" cx="100" cy="100" r="90"/><circle class="arco" id="arco" cx="100" cy="100" r="90"/></svg><div class="centro"><div class="min"><span id="min">0</span><span id="un" style="font-size:.28em;color:var(--tx2)"> min</span></div><div class="estado" id="estado"></div><div class="apoio" id="atu"></div></div></div>
+ <div class="cols3" id="cols"></div>
+ <p class="apoio rodape" id="aviso">Tela para TV ou tablet. Lê os dados do mesmo navegador do painel da barbearia; em outro aparelho ela não vê a agenda.</p>
+</main>
+<script src="config.js"></script>
+<script>
+(function(){const CFG=window.NAVALHA_CONFIG,BARB=CFG.barbeiros,K='navalha.proto.v2';
+const hh=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'),dia=()=>new Date().toLocaleDateString('sv'),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function ler(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function desenha(){const S=ler(),it=(S.itens||[]).filter(i=>i.d===dia()),d=new Date(),n=S.sim!=null?S.sim:d.getHours()*60+d.getMinutes();
+ const esp=b=>Math.round(it.filter(i=>i.b===b&&i.s==='aguardando').reduce((a,i)=>a+Math.max(0,Math.min(i.t+i.dur,n+60)-Math.max(i.t,n)),0)),w=BARB.map(b=>esp(b.id)),min=Math.min(...w);
+ const velho=S.upd&&Date.now()-S.upd>7200000;let est,ic,show=true;
+ if(S.pausa){est='Pausa';ic='pausa';show=false}else if(velho){est='Status desatualizado';ic='relogio';show=false}else if(min===0){est='Sem fila';ic='vazio'}else if(min<=30){est='Fila normal';ic='meio'}else{est='Fila cheia';ic='cheio'}
+ document.getElementById('min').textContent=show?min:'--';document.getElementById('un').style.display=show?'':'none';
+ const a=document.getElementById('arco');a.classList.toggle('vel',!show);a.style.strokeDashoffset=show?565*(1-Math.min(min/60,1)):0;
+ document.getElementById('estado').textContent=est;document.getElementById('atu').textContent=S.upd?'Atualizado há '+Math.max(0,Math.round((Date.now()-S.upd)/60000))+' min':'Menor espera entre os barbeiros';
+ document.getElementById('anel').setAttribute('aria-label',est+(show?', menor espera de '+min+' minutos':'')+'.');
+ document.getElementById('cols').innerHTML=BARB.map((b,k)=>{const l=it.filter(i=>i.b===b.id&&i.s==='aguardando').sort((x,y)=>x.t-y.t).slice(0,5);
+  return `<section class="col"><h2>${esc(b.n)}</h2><span class="apoio">${show?w[k]+' min de espera':'sem estimativa'}</span><ul>${l.length?l.map(i=>`<li><b>${hh(i.t)}</b>${esc(String(i.nome).split(' ')[0])}</li>`).join(''):'<li class="apoio">Livre</li>'}</ul></section>`}).join('')}
+window.addEventListener('storage',e=>{if(e.key===K)desenha()});setInterval(desenha,30000);desenha();
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});})();
+</script></body></html>
